@@ -1,8 +1,10 @@
-document.addEventListener("DOMContentLoaded", function() {
-    emailjs.init("5LAHYmyqnEIylZhIv"); // Replace with your actual Public Key
+document.addEventListener("DOMContentLoaded", function () {
+    // Initialize EmailJS with your Public Key
+    emailjs.init("5LAHYmyqnEIylZhIv");
 
-    document.getElementById("contact-form").addEventListener("submit", function(event) {
-        event.preventDefault();
+    // Add event listener to the form
+    document.getElementById("quote-form").addEventListener("submit", function (event) {
+        event.preventDefault(); // Prevent the default form submission
 
         // Get form values
         var name = document.getElementById("name").value;
@@ -17,17 +19,25 @@ document.addEventListener("DOMContentLoaded", function() {
             from_email: email,
             phone_number: mobile,
             selected_service: service,
-            message: message
+            message: message,
         };
 
+        // Log form data for debugging
+        console.log("Form data:", templateParams);
+
         // Send email using EmailJS
-        emailjs.send("service_wfrp8pq", "template_l4w12af", templateParams)
-        .then(function(response) {
-            alert("Email sent successfully!");
-            document.getElementById("contact-form").reset();
-        }, function(error) {
-            alert("Failed to send email. Please try again!");
-            console.log(error);
-        });
+        emailjs
+            .send("service_wfrp8pq", "template_ibxh64l", templateParams)
+            .then(
+                function (response) {
+                    console.log("Email sent successfully!", response);
+                    alert("Email sent successfully!");
+                    document.getElementById("quote-form").reset(); // Reset the form
+                },
+                function (error) {
+                    console.error("Failed to send email:", error);
+                    alert("Failed to send email. Please try again!");
+                }
+            );
     });
 });
